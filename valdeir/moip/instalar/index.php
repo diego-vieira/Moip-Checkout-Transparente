@@ -20,6 +20,8 @@
 		if (!empty($user->rows)):
 			$session->set('logado', 'sim');
 			echo "<script>location = 'steps.php'</script>";
+		else:
+			$erro = "Usuário ou senha inválidos.";
 		endif;
 		
 	endif;
@@ -52,6 +54,9 @@
 				<h2 class="subTitle" style="margin:20px auto">Digite seu login e senha para poder instalar o módulo</h2>	
 				<?php else: ?>
 				<h2 class="subTitle" style="margin:20px auto">Módulo instalado com sucesso</h2>	
+				<?php endif ?>
+				<?php if (isset($erro)): ?>
+					<h3 style="color: #ff0000"><?php echo $erro; ?></h3>	
 				<?php endif ?>
 				<div id="steps" style="width:900px !important;margin:0 auto">
 					<form name="desinstalar" action="#" method="post">

@@ -48,10 +48,10 @@
 		}
 	}
 	
-	if (isset($_POST)):
+	if (isset($_POST['moip_apitoken'])):
 		ini_set('default_charset', 'UTF-8');
 		$db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "moip_nasp`");
-		$db->query("DROP TABLE IF EXISTS `cartaocredito`");
+		$db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "moip_cartaocredito`");
 		$db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "moip_nasp` (
 					  `id` int(11) NOT NULL AUTO_INCREMENT,
 					  `id_transacao` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -68,7 +68,7 @@
 					  `cofre` varchar(36) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Indefinido',
 					  PRIMARY KEY (`id`)
 					) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2047 ;");
-		$db->query("CREATE TABLE IF NOT EXISTS `cartaocredito` (
+		$db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "moip_cartaocredito` (
 				  `id_cartaoCredito` int(11) NOT NULL AUTO_INCREMENT,
 				  `customer_id` int(11) NOT NULL,
 				  `bandeiraCartao` varchar(1000) CHARACTER SET utf8 NOT NULL,
@@ -133,24 +133,9 @@
 			}	
 		}
 		
-		$mensagem = 'Houve uma instalação na loja <a href="' . HTTP_SERVER . '">' . $config_name . '</a>';
-		
-		$mail = new Mail();
-		$mail->protocol = $config_mail_protocol;
-		$mail->parameter = $config_mail_parameter;
-		$mail->hostname = $config_smtp_host;
-		$mail->username = $config_smtp_username;
-		$mail->password = $config_smtp_password;
-		$mail->port = $config_smtp_port;
-		$mail->timeout = $config_smtp_timeout;
-		$mail->setTo('valdeirpsr@hotmail.com.br');
-		$mail->setFrom($config_email);
-		$mail->setSender($config_name);
-		$mail->setSubject(html_entity_decode('MoIP Instalado', ENT_QUOTES, 'UTF-8'));
-		$mail->setHtml($mensagem, ENT_NOQUOTES);
-		$mail->send();
-		
 		editSetting('moip', $_POST);
+		
+		header('Location: steps.php?sucesso=true');
 	endif;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -205,7 +190,9 @@
 			<!--------------->
 			<!--  Success  -->
 			<!--------------->
-			<div class="warning">Basta preencher apenas 1 vez.</div>
+			<?php if(!isset($_GET['erro']) && isset($_GET['sucesso'])): ?>
+			<div class="success">Módulo MoIP instalado com sucesso. Basta fechar esta página.</div>
+			<?php endif; ?>
 			
 			<!--------------->
 			<!--   Title   -->
@@ -246,7 +233,7 @@
 							<!-------------->
                             <p>
                                 <label for="moip_razao">Razão do Pagamento: </label>
-                                <input id="moip_razao" name="moip_razao" AUTOCOMPLETE=OFF />
+                                <input id="moip_razao" name="moip_razao" />
                             </p>
 							
 							<!-------------->
@@ -295,7 +282,7 @@
 								<select id="moip_modoParcelas" name="moip_modoParcelas">
 									<option value="select">Select</option>
 									<option value="radio">Radio Button</option>
-									<option value="radio">Radio Button 2 Cols</option>
+									<option value="radio2Cols">Radio Button 2 Cols</option>
 								</select>
                             </p>
 							
@@ -461,7 +448,7 @@
 							<!--------------->
                             <p>
                                 <label for="moip_sort_order">Ordem:</label>
-                                <input id="moip_sort_order" name="moip_sort_order" type="number" AUTOCOMPLETE=OFF />
+                                <input id="moip_sort_order" name="moip_sort_order" type="number" />
                             </p>
                         </fieldset>
 						
@@ -555,7 +542,7 @@
 							<!--------------->
                             <p>
                                 <label for="moip_diasCorridosBoleto">Prazo:</label>
-                                <input id="moip_diasCorridosBoleto" name="moip_diasCorridosBoleto" type="number" AUTOCOMPLETE=OFF />
+                                <input id="moip_diasCorridosBoleto" name="moip_diasCorridosBoleto" type="number" />
                             </p>
 							
 							<!--------------->
@@ -563,7 +550,7 @@
 							<!--------------->
 							<p>
                                 <label for="moip_instrucaoUmBoleto">Instrução 1:</label>
-                                <input id="moip_instrucaoUmBoleto" name="moip_instrucaoUmBoleto" type="text" AUTOCOMPLETE=OFF />
+                                <input id="moip_instrucaoUmBoleto" name="moip_instrucaoUmBoleto" type="text" />
                             </p>
 							
 							<!--------------->
@@ -571,7 +558,7 @@
 							<!--------------->
 							<p>
                                 <label for="moip_instrucaoDoisBoleto">Instrução 2:</label>
-                                <input id="moip_instrucaoDoisBoleto" name="moip_instrucaoDoisBoleto" type="text" AUTOCOMPLETE=OFF />
+                                <input id="moip_instrucaoDoisBoleto" name="moip_instrucaoDoisBoleto" type="text" />
                             </p>
 							
 							<!--------------->
@@ -579,7 +566,7 @@
 							<!--------------->
 							<p>
                                 <label for="moip_instrucaoTresBoleto">Instrução 3:</label>
-                                <input id="moip_instrucaoTresBoleto" name="moip_instrucaoTresBoleto" type="text" AUTOCOMPLETE=OFF />
+                                <input id="moip_instrucaoTresBoleto" name="moip_instrucaoTresBoleto" type="text" />
                             </p>
 							
 							<!--------------->
@@ -587,7 +574,7 @@
 							<!--------------->
 							<p>
                                 <label for="moip_urlLogoBoleto">Url de sua logo::</label>
-                                <input id="moip_urlLogoBoleto" name="moip_urlLogoBoleto" type="url" AUTOCOMPLETE=OFF />
+                                <input id="moip_urlLogoBoleto" name="moip_urlLogoBoleto" type="url" />
                             </p>
 							
                         </fieldset>

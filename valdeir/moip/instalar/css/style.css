@@ -275,8 +275,19 @@ a.button, .list a.button {
 .warning {
 	padding: 10px 10px 10px 33px;
 	margin-bottom: 15px;
-	background: #FFD1D1 url('../../../catalog/view/theme/default/image/warning.png') 10px center no-repeat;
+	background: #FFD1D1 url('../../../../catalog/view/theme/default/image/warning.png') 10px center no-repeat;
 	border: 1px solid #F8ACAC;
+	color: #555555;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-khtml-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+.success {
+	padding: 10px 10px 10px 33px;
+	margin-bottom: 15px;
+	background: #b1edb2 url('../../../../catalog/view/theme/default/image/success.png') 10px center no-repeat;
+	border: 1px solid #0d5111;
 	color: #555555;
 	-webkit-border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;

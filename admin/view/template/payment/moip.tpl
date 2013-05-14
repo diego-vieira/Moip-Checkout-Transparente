@@ -491,8 +491,10 @@
 							</tr>
 						</thead>
 						<?php $module_row = 0; ?>
-						<?php $maxParcela = $moip_parcelas[0]['de']; ?>
-						<?php foreach ($moip_parcelas as $parcela) { ?>
+						<?php print_r($moip_parcelas); $maxParcela = $moip_parcelas[0]['de']; ?>
+						<?php
+						if (count($moip_parcelas)) {
+						foreach ($moip_parcelas as $parcela) { ?>
 						<tbody id="module-row<?php echo $module_row ?>">
 							
 							<!------------------>
@@ -632,7 +634,7 @@
 							</tr>
 						</tbody>
 						<?php $module_row++; ?>
-						<?php } ?>
+						<?php } } ?>
 						<tfoot>
 							
 							<!------------------>
@@ -878,7 +880,7 @@ function addParcela() {
 	html  = '<tbody id="module-row'+module_row+'">'
 	html += '	<tr>'
 	html += '		<td class="left">'
-	html += '			<select name="moip_parcelas[\''+module_row+'\'][de]">'
+	html += '			<select name="moip_parcelas['+module_row+'][de]">'
 	html += '				<option value="2">2</option>'
 	html += '				<option value="3">3</option>'
 	html += '				<option value="4">4</option>'
@@ -893,7 +895,7 @@ function addParcela() {
 	html += '			</select>'
 	html += '		</td>'
 	html += '		<td class="right">'
-	html += '			<select name="moip_parcelas[\''+module_row+'\'][para]">'
+	html += '			<select name="moip_parcelas['+module_row+'][para]">'
 	html += '				<option value="2">2</option>'
 	html += '				<option value="3">3</option>'
 	html += '				<option value="4">4</option>'
@@ -908,7 +910,7 @@ function addParcela() {
 	html += '			</select>'
 	html += '		</td>'
 	html += '		<td class="right">'
-	html += '			<input type="text" value="000" name="moip_parcelas[\''+module_row+'\'][juros]" title="Juros" />'
+	html += '			<input type="text" value="000" name="moip_parcelas['+module_row+'][juros]" title="Juros" />'
 	html += '		</td>'
 	html += '		<td class="left"><a onclick="$(\'#module-row'+module_row+'\').remove();" class="button"><?php echo $button_remover ?></a></td>'
 	html += '	</tr>'
