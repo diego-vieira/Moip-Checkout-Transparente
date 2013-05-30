@@ -491,7 +491,7 @@
 							</tr>
 						</thead>
 						<?php $module_row = 0; ?>
-						<?php print_r($moip_parcelas); $maxParcela = $moip_parcelas[0]['de']; ?>
+						<?php $maxParcela = $moip_parcelas[0]['de']; ?>
 						<?php
 						if (count($moip_parcelas)) {
 						foreach ($moip_parcelas as $parcela) { ?>
