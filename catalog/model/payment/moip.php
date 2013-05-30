@@ -63,7 +63,7 @@ class ModelPaymentMoip extends Model {
 		
 		$bandeira = $encryption->encrypt($bandeira);
 		
-		$sql = "SELECT * FROM `cartaocredito` WHERE `customer_id` = ".$customer_id." AND `bandeiraCartao` = '".$bandeira."'";
+		$sql = "SELECT * FROM `" . DB_PREFIX . "cartaocredito` WHERE `customer_id` = ".$customer_id." AND `bandeiraCartao` = '".$bandeira."'";
 		$dados = $this->db->query($sql);		
 		if (!empty($dados->rows)):
 			$retorno['localizado']        = 'sim';
